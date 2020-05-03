@@ -1,0 +1,32 @@
+﻿@model Mvc.Models.ConfigurationModel
+
+@{
+    ViewBag.Title = "Options";
+    Layout = "_Layout";
+}
+
+<h2>How to manage configuration</h2>
+
+<h3>IOptions configuration</h3>
+<dl>
+    <dt>City</dt>
+    <dd>@Model.OptionsConfiguration.City</dd>
+    <dt>Favorite mountain</dt>
+    <dd>@Model.OptionsConfiguration.FavoriteMountain</dd>
+</dl>
+
+<h3>IOptionsSnapshot configuration (for transient and scoped dependencies)</h3>
+<dl>
+    <dt>City</dt>
+    <dd>@Model.SnapshotConfiguration.City</dd>
+    <dt>Favorite mountain</dt>
+    <dd>@Model.SnapshotConfiguration.FavoriteMountain</dd>
+</dl>
+
+<h3>IOptionsMonitor configuration (for singleton dependencies)</h3>
+<dl>
+    <dt>City</dt>
+    <dd>@Model.OptionsMonitorConfiguration.City</dd>
+    <dt>Favorite mountain</dt>
+    <dd>@Model.OptionsMonitorConfiguration.FavoriteMountain</dd>
+</dl>

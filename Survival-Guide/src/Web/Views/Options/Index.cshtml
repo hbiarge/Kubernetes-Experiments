@@ -1,0 +1,16 @@
+﻿@model Web.Models.ConfigurationModel
+
+@{
+    ViewBag.Title = "Options";
+    Layout = "_Layout";
+}
+
+<h2>How to manage configuration</h2>
+
+<h3>IOptions configuration</h3>
+<dl>
+    <dt>City</dt>
+    <dd>@Model.OptionsConfiguration.City</dd>
+    <dt>Food</dt>
+    <dd>@Model.OptionsConfiguration.FavoriteMountain</dd>
+</dl>

@@ -1,0 +1,40 @@
+﻿@model Shared.HealthChecks.HealthCheckState
+
+@{
+    ViewBag.Title = "Health";
+    Layout = "_Layout";
+}
+
+<h2>Manage readyness and liveness</h2>
+
+<h3>Is application ready?</h3>
+@if (Model.IsReady)
+{
+    <p>The application is ready</p>
+    <form asp-area="" asp-controller="Health" , asp-action="SetNotReady">
+        <button type="submit">Set not ready</button>
+    </form>
+}
+else
+{
+    <p>The application is not ready</p>
+    <form asp-area="" asp-controller="Health" , asp-action="SetReady">
+        <button type="submit">Set ready</button>
+    </form>
+}
+
+<h3>Is application live?</h3>
+@if (Model.IsLive)
+{
+    <p>The application is live</p>
+    <form asp-area="" asp-controller="Health" , asp-action="SetNotLive">
+        <button type="submit">Set not live</button>
+    </form>
+}
+else
+{
+    <p>The application is not ready</p>
+    <form asp-area="" asp-controller="Health" , asp-action="SetLive">
+        <button type="submit">Set live</button>
+    </form>
+}

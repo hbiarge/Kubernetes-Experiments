@@ -1,0 +1,55 @@
+apiVersion: "aadpodidentity.k8s.io/v1"
+kind: AzureIdentity
+metadata:
+  name: demo
+spec:
+  type: 0
+  resourceID: /subscriptions/9586abf0-77e3-4f0d-96e7-26ece6da09f3/resourceGroups/demo-aadpi/providers/Microsoft.ManagedIdentity/userAssignedIdentities/demo
+  clientID: 6eef6250-4135-4060-ab54-6a25317f07ca
+---
+apiVersion: "aadpodidentity.k8s.io/v1"
+kind: AzureIdentityBinding
+metadata:
+  name: demo-binding
+spec:
+  azureIdentity: demo
+  selector: aad-demo-selector
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: aad-demo
+  namespace: default
+spec:
+  ports:
+  - protocol: TCP
+    port: 80
+  selector:
+    app: aad-demo
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: aad-demo
+  namespace: default
+  labels:
+    name: aad-demo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: aad-demo
+  template:
+    metadata:
+      labels:
+        app: aad-demo
+        aadpodidbinding: aad-demo-selector
+    spec:
+      containers:
+      - name: aad-demo
+        image: acrachevecoredev.azurecr.io/samples/aad-demo:v1
+        imagePullPolicy: IfNotPresent
+        ports:
+          - containerPort: 80
+      imagePullSecrets:
+      - name: acr-secret
